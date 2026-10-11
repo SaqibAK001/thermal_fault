@@ -1,0 +1,11 @@
+fastapi
+uvicorn[standard]
+python-multipart
+tensorflow
+numpy
+pandas
+scikit-learn
+matplotlib
+opencv-python
+Pillow
+h5py

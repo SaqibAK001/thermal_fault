@@ -1,0 +1,41 @@
+
+# Ignore the dataset
+data/
+
+# Ignore Python virtual environments
+venv/
+env/
+.venv/
+ENV/
+
+# Ignore Conda environments (if stored inside the project)
+thermal_fault/
+
+# Ignore Python cache files
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Ignore environment variables and secrets
+.env
+.env.*
+
+# Ignore Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Ignore model files
+*.h5
+*.keras
+*.pkl
+*.joblib
+
+# Ignore logs
+*.log
+
+# Ignore OS-generated files
+.DS_Store
+Thumbs.db
+
+# Ignore IDE settings
+.vscode/
+.idea/

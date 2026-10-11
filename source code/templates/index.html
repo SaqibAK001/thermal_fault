@@ -1,0 +1,359 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thermal Fault Detection</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header class="topbar">
+        <div class="brand">
+            <div class="brand-icon">🌡</div>
+            <div>
+                <h1>ThermalGuard AI</h1>
+                <p>Deep Learning Thermal Fault Detection</p>
+            </div>
+        </div>
+
+        <div class="system-status">
+            <span class="status-dot"></span>
+            AI SYSTEM ONLINE
+        </div>
+    </header>
+
+    <main class="container">
+
+        <!-- INTRO -->
+        <section class="hero">
+            <div>
+                <span class="eyebrow">
+                    INTELLIGENT CONDITION MONITORING
+                </span>
+
+                <h2>
+                    Thermal Image
+                    <span>Intelligence</span>
+                </h2>
+
+                <p>
+                    Upload a thermal image of electrical equipment
+                    and let the deep learning model identify abnormal
+                    thermal conditions and highlight important regions.
+                </p>
+            </div>
+        </section>
+
+        <!-- UPLOAD CARD -->
+        <section class="upload-card">
+
+            <div class="section-title">
+                <div>
+                    <span class="section-number">01</span>
+                    <div>
+                        <h3>Thermal Image Input</h3>
+                        <p>Select a thermal image for analysis</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="drop-zone" id="dropZone">
+                <div class="upload-icon">↑</div>
+
+                <h3>Drop your thermal image here</h3>
+                <p>or click below to browse</p>
+
+                <input
+                    type="file"
+                    id="imageInput"
+                    accept="image/*"
+                    hidden
+                >
+
+                <button
+                    class="browse-btn"
+                    id="browseBtn"
+                    type="button"
+                >
+                    Choose Thermal Image
+                </button>
+
+                <div class="file-name" id="fileName">
+                    No image selected
+                </div>
+            </div>
+
+            <!-- IMAGE PREVIEW -->
+            <div
+                class="preview-container"
+                id="previewContainer"
+                hidden
+            >
+                <div class="preview-header">
+                    <span>IMAGE PREVIEW</span>
+
+                    <button
+                        id="removeImage"
+                        class="remove-btn"
+                        type="button"
+                    >
+                        Remove
+                    </button>
+                </div>
+
+                <img
+                    id="imagePreview"
+                    alt="Thermal image preview"
+                >
+            </div>
+
+            <button
+                class="analyze-btn"
+                id="analyzeBtn"
+                disabled
+            >
+                <span id="analyzeText">
+                    Analyze Thermal Image
+                </span>
+
+                <span
+                    class="loader"
+                    id="loader"
+                    hidden
+                ></span>
+            </button>
+
+        </section>
+
+        <!-- RESULTS -->
+        <section
+            class="results-section"
+            id="resultsSection"
+            hidden
+        >
+
+            <div class="section-title">
+                <div>
+                    <span class="section-number">02</span>
+                    <div>
+                        <h3>AI Inspection Result</h3>
+                        <p>Deep learning analysis of the thermal image</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RESULT SUMMARY -->
+            <div class="result-grid">
+
+                <!-- DETECTED CONDITION -->
+                <div class="result-card condition-card">
+                    <span class="card-label">
+                        DETECTED CONDITION
+                    </span>
+
+                    <div
+                        class="condition-name"
+                        id="predictedClass"
+                    >
+                        —
+                    </div>
+
+                    <div
+                        class="component-info"
+                        id="componentInfo"
+                    >
+                        Component: —
+                    </div>
+
+                    <div
+                        class="condition-status"
+                        id="conditionStatus"
+                    >
+                        Analysis complete
+                    </div>
+                </div>
+
+                <!-- MODEL CONFIDENCE -->
+                <div class="result-card confidence-card">
+                    <span class="card-label">
+                        MODEL CONFIDENCE
+                    </span>
+
+                    <div
+                        class="confidence-value"
+                        id="confidenceValue"
+                    >
+                        0%
+                    </div>
+
+                    <div class="confidence-bar">
+                        <div
+                            class="confidence-fill"
+                            id="confidenceFill"
+                        ></div>
+                    </div>
+                </div>
+
+                <!-- ESTIMATED THERMAL HEALTH -->
+                <div class="result-card health-card">
+                    <span class="card-label">
+                        ESTIMATED THERMAL HEALTH
+                    </span>
+
+                    <div class="health-score">
+                        <span id="healthScore">--</span>
+                        <span class="health-percent">%</span>
+                    </div>
+
+                    <div class="health-progress">
+                        <div
+                            id="healthBar"
+                            class="health-progress-fill"
+                        ></div>
+                    </div>
+
+                    <div
+                        id="healthStatus"
+                        class="health-status"
+                    >
+                        Waiting for analysis
+                    </div>
+
+                    <p
+                        id="healthReason"
+                        class="health-reason"
+                    >
+                        Upload a thermal image to estimate the condition.
+                    </p>
+
+                    <small class="health-disclaimer">
+                        Prototype rule-based estimate, not measured motor health.
+                    </small>
+                </div>
+
+                <!-- MODEL -->
+                <div class="result-card">
+                    <span class="card-label">MODEL</span>
+
+                    <div class="model-name">
+                        EfficientNetB0
+                    </div>
+
+                    <div class="model-info">
+                        Transfer Learning
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- VISUAL ANALYSIS -->
+            <div class="visual-section">
+
+                <div class="visual-header">
+                    <div>
+                        <span class="section-number">03</span>
+                        <div>
+                            <h3>Thermal Region Analysis</h3>
+                            <p>
+                                Grad-CAM visualization of regions
+                                influencing the prediction
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="image-grid">
+
+                    <!-- ORIGINAL IMAGE -->
+                    <div class="image-card">
+                        <div class="image-card-header">
+                            <span>ORIGINAL THERMAL IMAGE</span>
+                        </div>
+
+                        <div class="image-wrapper">
+                            <img
+                                id="originalImage"
+                                alt="Original thermal image"
+                            >
+                        </div>
+                    </div>
+
+                    <!-- GRAD-CAM -->
+                    <div class="image-card">
+                        <div class="image-card-header">
+                            <span>GRAD-CAM ANALYSIS</span>
+                            <span class="heatmap-label">
+                                AI ATTENTION
+                            </span>
+                        </div>
+
+                        <div class="image-wrapper">
+                            <img
+                                id="gradcamImage"
+                                alt="Grad-CAM thermal analysis"
+                            >
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="explanation">
+                    <div class="explanation-icon">✦</div>
+
+                    <div>
+                        <strong>Explainable AI</strong>
+                        <p>
+                            The highlighted regions represent areas
+                            that contributed most strongly to the
+                            model's classification decision.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- CLASS PROBABILITIES -->
+            <div class="probability-section">
+
+                <div class="visual-header">
+                    <div>
+                        <span class="section-number">04</span>
+
+                        <div>
+                            <h3>Class Probabilities</h3>
+                            <p>
+                                Confidence distribution across all
+                                detected thermal conditions
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div
+                    class="probabilities"
+                    id="probabilities"
+                ></div>
+
+            </div>
+
+        </section>
+
+        <!-- FOOTER -->
+        <footer>
+            <div>THERMALGUARD AI</div>
+            <span>
+                Deep Learning Based Thermal Fault Detection
+            </span>
+        </footer>
+
+    </main>
+
+    <script src="/static/app.js"></script>
+
+</body>
+</html>
